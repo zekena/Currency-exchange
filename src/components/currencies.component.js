@@ -91,7 +91,7 @@ export default class Currencies extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios
       .get("http://localhost:5000/currency")
       .then((res) => {
