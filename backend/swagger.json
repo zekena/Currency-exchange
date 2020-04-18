@@ -1,0 +1,215 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Currency exchange API",
+    "description": "this is a test for aktors internship application which allows to view, save, update and delete currencies rates to the EURO in a mongodb database",
+    "contact": {
+      "name": "Zeyad Saber Refaei Kenawi",
+      "email": "zeyad.kenawi@protonmail.com"
+    },
+    "version": "0.0.1",
+    "servers": [
+      "http://localhost:5000"
+    ]
+  },
+  "tags": [
+    {
+      "name": "Currencies",
+      "description": "Currency exchange rates"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "currency": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "currencyName": {
+          "type": "string"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "rateToEuro": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "newCurrency": {
+      "type": "object",
+      "properties": {
+        "currencyName": {
+          "type": "string"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "rateToEuro": {
+          "type": "number"
+        }
+      }
+  },
+  "deletedCount": {
+    "type": "object",
+    "properties": {
+      "deletedCount": {
+        "type": "number"
+      }
+    }
+  },
+  "code": {
+    "type": "object",
+    "properties": {
+      "currencyCode": {
+        "type": "string"
+      }
+    }
+  },
+  "rate":{
+    "type": "object",
+    "properties": {
+      "rateToEuro":{
+        "type":"number"
+      }
+    }
+  },
+  "Modified":{
+    "type":"object",
+    "properties": {
+      "nModified": {
+        "type":"number"
+      }
+    }
+  }
+},
+  "paths": {
+    "/currency": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "summary": "gets an overview of all currencies rates available",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/currency"
+            }
+          },
+          "500": {
+            "description": "Error with the server"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Currencies"
+        ],
+        "summary": "adds a new currency to the database if it doesn'e exist",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Adding a new currency",
+            "schema": {
+              "$ref": "#/definitions/newCurrency"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/currency"
+            }
+          },
+          "400": {
+            "description": "Error with the client request"
+          },
+          "401": {
+            "description": "Error with the entry currency name or the code check the codes.txt file and write the code and the currency accordingly"
+          }
+        }
+      }},
+      "/currency/{code}":{
+      "delete": {
+        "tags": [
+          "Currencies"
+        ],
+        "summary": "deletes a currency with a given currency code",
+        "parameters": [
+          {
+              "in": "path",
+              "name": "code",
+              "required": true,
+              "description": "Delete a currency with its code",
+              "schema": {
+                  "$ref": "#/definitions/code"
+              }
+          }
+      ],
+        "responses": {
+          "200": {
+            "description": "Deleted succesfully or doesn't exist",
+            "schema": {
+              "$ref": "#/definitions/deletedCount"
+            }},
+          "400": {
+              "description": "Error with the client request"
+            }
+            }
+          },
+          "patch": {
+            "tags": ["Currencies"],
+            "summary": "updates the rate of the currency with its code",
+            "parameters": [{
+              "in": "body",
+              "name": "body",
+              "description": "The new rate",
+              "schema":{
+                "$ref":"#/definitions/rate"
+              }
+
+            },{
+              "in":"path",
+              "name": "code",
+              "required": true,
+              "description": "The currency code",
+              "schema": {
+                "$ref":"#/definitions/code"
+              }
+            }],
+            "produces":["application/json"],
+            "responses":{
+              "200":{
+                "description": "Edited successfully",
+                "schema":{"$ref":"#/definitions/Modified"}
+              },
+              "400":{
+                "description":"Error with the client request"
+              }
+            }
+
+          }
+        }
+      }
+    }
