@@ -72,7 +72,12 @@ export default class Currencies extends Component {
       },
       function (button, text) {
         if (button == "warning") {
-          x0p("Congratulations", "Your number is " + text + "!", "ok", false);
+          x0p(
+            "Congratulations",
+            "Your number is " + text + "!",
+            "ok",
+            false
+          ).then((window.location = "/"));
         }
       }
     ).then(function (object) {

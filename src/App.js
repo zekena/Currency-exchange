@@ -3,16 +3,19 @@ import "materialize-css/dist/css/materialize.min.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Currencies from "./components/currencies.component";
 import AddCurrency from "./components/AddCurrency.component";
+import Footer from "./components/Footer.component";
 import logo from "./15507.png";
+import './index.css';
 
 export default class App extends Component {
   render() {
     return (
       <Router>
+        <header>
         <div className="container">
           <nav>
             <div className="nav-wrapper blue">
-              <a className="center brand-logo" href="https://github.com/zekena">
+              <a className="center brand-logo" href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html">
                 <img
                   src={logo}
                   width="30"
@@ -33,10 +36,16 @@ export default class App extends Component {
               </ul>
             </div>
           </nav>
+          </div>
+          </header>
+          <main>
+           <div className="container"> 
           <Route path="/" exact component={Currencies} />
           <Route path="/create" component={AddCurrency} />
-        </div>
-      </Router>
+          </div>
+          </main>
+        <Footer />
+    </Router>
     );
   }
 }
