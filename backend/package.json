@@ -15,7 +15,7 @@
     "mongoose": "^5.13.9",
     "mongoose-unique-validator": "^2.0.3",
     "n-readlines": "^1.0.0",
-    "nodemon": "^2.0.3",
+    "nodemon": "^2.0.17",
     "react-router-dom": "^5.1.2",
     "swagger-ui-express": "^4.1.4"
   }
